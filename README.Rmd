@@ -1,0 +1,46 @@
+---
+title: "Nina Hernandez"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(openintro)
+library(moderndive)
+library(mosaic)
+library(ggpubr)
+library(infer)
+```
+
+## GitHub Documents
+
+A quick glance at a dataset from the fivethrityeight package: mariokart
+
+## Mariokart Auction Data
+
+Brief summary statistics of each variable in the dataset. 
+
+```{r cars}
+summary(mariokart)
+```
+
+## Scatter Plot: Comparing Two Variables in Dataframe
+
+This plot shows the relationship between the total number of bids a mario kart game received and the total price that game sold for, for both used and new condition mario kart games.
+
+```{r pressure, echo=FALSE}
+parallel_slopes_model <- lm(total_pr ~ n_bids + cond, data = mariokart)
+summary(parallel_slopes_model)
+
+ggplot(mariokart, aes(n_bids, total_pr, col=cond)) + geom_point() + 
+  coord_cartesian(ylim = c(0,150)) +
+  geom_abline(slope =0.5190, intercept = 46.4699-6.1549, col= "#00BFC4")  +
+  geom_abline(slope = .5190, intercept = 46.4699, col= "#F8766D" ) +
+  labs(x="Total Number of Bids", y="Total Price of Game", title = "Total Number of Bids vs. Total Price Of Mario Kart Game Based On Condition")
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
